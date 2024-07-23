@@ -1,9 +1,14 @@
 extends CharacterBody2D
 
 @export var speed: float = 3
+@export var sword_damage: int = 2
+@export var health: int = 15
+@export var death_prefab: PackedScene
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var sword_area: Area2D = $SwordArea
+@onready var hitbox_area: Area2D = $HitBoxArea
 
 var input_vector: Vector2 = Vector2(0,0)
 
@@ -11,20 +16,24 @@ var is_running: bool = false
 var was_running: bool = false
 var is_attaking: bool = false
 var attack_cooldown: float = 0.0
+var hitbox_cooldown: float = 0.0
 
 func _process(delta):
+	GameManager.player_position = position
+	update_hitbox_detection(delta)
 	if is_attaking:
 		attack_cooldown -= delta
 		if attack_cooldown <= 0:
 			is_attaking = false
 			animation_player.play("idle")
+	
 
 func _physics_process(delta):
 	if !is_attaking:
 		read_input()
 		
 		# modifica a velocidade
-		var target_velocity = input_vector * 100.0
+		var target_velocity = input_vector * 100.0 * speed
 		velocity = lerp(velocity, target_velocity, 0.5)
 		move_and_slide()
 		
@@ -63,3 +72,60 @@ func attack() -> void:
 	attack_cooldown = 0.6
 	is_running = false
 	is_attaking = true
+	
+	
+func deal_damage_to_enemies():
+	var bodies = sword_area.get_overlapping_bodies()
+	for body in bodies:
+		if body.is_in_group("enemies"):
+			var enemy: Enemy = body
+			var direction_to_enemy = (enemy.position - position).normalized()
+			var attack_direction: Vector2
+			if sprite.flip_h:
+				attack_direction = Vector2.LEFT
+			else:
+				attack_direction = Vector2.RIGHT
+			var dot_product = direction_to_enemy.dot(attack_direction)
+			if dot_product > 0.4:
+				enemy.damage(sword_damage)
+
+
+func update_hitbox_detection(delta: float):
+	hitbox_cooldown -= delta
+	
+	if hitbox_cooldown > 0 : return
+	
+	hitbox_cooldown = 0.5
+	
+	var bodies = hitbox_area.get_overlapping_bodies()
+	for body in bodies:
+		print("testando 123")
+		if body.is_in_group("enemies"):
+			var enemy: Enemy = body
+			var damage_amount = 1
+			damage(damage_amount)
+	
+
+func damage(amount: int) -> void:
+	if health <= 0: return
+	
+	health -= amount
+	
+	modulate = Color.RED
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_IN)
+	tween.set_trans(Tween.TRANS_QUINT)
+	tween.tween_property(self, "modulate", Color.WHITE, 0.3)
+	
+	
+	if health <= 0:
+		die()
+	
+
+func die() -> void:
+	if death_prefab:
+		var death_object = death_prefab.instantiate()
+		death_object.position = position
+		get_parent().add_child(death_object)
+	
+	queue_free()

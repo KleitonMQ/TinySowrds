@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dsbdn5lvdry4n"]
+[gd_scene load_steps=7 format=3 uid="uid://dsbdn5lvdry4n"]
 
 [ext_resource type="Texture2D" uid="uid://b6kj36e7emex" path="res://addons/Tiny Swords/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="1_2jcd4"]
 [ext_resource type="PackedScene" uid="uid://ciddiow0h734r" path="res://player/player.tscn" id="2_6ig7e"]
+[ext_resource type="Texture2D" uid="uid://b2rga8liu6g7g" path="res://addons/Tiny Swords/Factions/Knights/Troops/Pawn/Red/Pawn_Red.png" id="3_jjyyg"]
+[ext_resource type="PackedScene" uid="uid://cmvnem1tmb0ol" path="res://enemies/pawn.tscn" id="4_ydora"]
+[ext_resource type="PackedScene" uid="uid://bbn20y1ojclcs" path="res://enemies/sheep.tscn" id="5_psndq"]
+[ext_resource type="PackedScene" uid="uid://btk7wibo3nepo" path="res://enemies/goblin.tscn" id="6_tvn8a"]
 
 [node name="TestPlayer" type="Node2D"]
 
@@ -41,5 +45,60 @@ text = "0
 7"
 
 [node name="Player" parent="." instance=ExtResource("2_6ig7e")]
-position = Vector2(128, 530)
-speed = 5.0
+position = Vector2(254, 525)
+
+[node name="PawnRed" type="Sprite2D" parent="."]
+position = Vector2(1612, 1204)
+texture = ExtResource("3_jjyyg")
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 1103.0
+offset_top = 630.0
+offset_right = 1158.0
+offset_bottom = 653.0
+scale = Vector2(6.8062, 2.95862)
+text = "0    1     2    3     4     5"
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 1022.0
+offset_top = 683.0
+offset_right = 1173.0
+offset_bottom = 706.0
+scale = Vector2(6.8062, 2.95862)
+text = "0
+
+
+1
+
+2
+
+
+3
+
+4
+
+5"
+
+[node name="Pawn" parent="." instance=ExtResource("4_ydora")]
+position = Vector2(-381, -122)
+
+[node name="Pawn2" parent="." instance=ExtResource("4_ydora")]
+position = Vector2(-271, 1479)
+
+[node name="Pawn3" parent="." instance=ExtResource("4_ydora")]
+position = Vector2(-1580, 526)
+
+[node name="Sheep" parent="." instance=ExtResource("5_psndq")]
+position = Vector2(-2, 1003)
+
+[node name="Sheep2" parent="." instance=ExtResource("5_psndq")]
+position = Vector2(-302, 501)
+
+[node name="Sheep3" parent="." instance=ExtResource("5_psndq")]
+position = Vector2(690, -191)
+
+[node name="Sheep4" parent="." instance=ExtResource("5_psndq")]
+position = Vector2(766, 1239)
+
+[node name="Goblin" parent="." instance=ExtResource("6_tvn8a")]
+position = Vector2(354, 1505)
