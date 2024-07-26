@@ -1,12 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://ciddiow0h734r"]
+[gd_scene load_steps=19 format=3 uid="uid://ciddiow0h734r"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_pv3a1"]
 [ext_resource type="Texture2D" uid="uid://b6kj36e7emex" path="res://addons/Tiny Swords/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="1_qlwhy"]
 [ext_resource type="PackedScene" uid="uid://0pi0agmfdoy5" path="res://misc/big_skull.tscn" id="2_ckmeg"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tq0he"]
-radius = 15.0
-height = 66.7692
+[sub_resource type="CircleShape2D" id="CircleShape2D_c86nq"]
+radius = 19.3471
 
 [sub_resource type="Animation" id="Animation_p7ep6"]
 length = 0.001
@@ -254,17 +253,31 @@ _data = {
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4651s"]
 radius = 11.0472
+height = 26.47
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fsff"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.588235)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ul2gv"]
+bg_color = Color(0.709804, 0, 0.109804, 0.588235)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_pv3a1")
 speed = 5.0
 death_prefab = ExtResource("2_ckmeg")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -27)
-scale = Vector2(1.125, 0.83871)
-shape = SubResource("CapsuleShape2D_tq0he")
-debug_color = Color(0, 0.6, 0.701961, 0.207843)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -273,6 +286,12 @@ texture = ExtResource("1_qlwhy")
 hframes = 6
 vframes = 8
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -14)
+scale = Vector2(0.725, 0.83871)
+shape = SubResource("CircleShape2D_c86nq")
+debug_color = Color(0, 0.6, 0.701961, 0.207843)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_kvt0q")
@@ -280,6 +299,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="SwordArea" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordArea"]
 position = Vector2(1, -30)
@@ -288,11 +308,22 @@ shape = SubResource("CircleShape2D_txcl7")
 debug_color = Color(0.741176, 0, 0.227451, 0)
 
 [node name="HitBoxArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(-2, 7)
 scale = Vector2(1.64, 1.36)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxArea"]
 position = Vector2(3, -29)
-scale = Vector2(2.44406, 2.19116)
+scale = Vector2(1.98065, 2.19116)
 shape = SubResource("CapsuleShape2D_4651s")
 debug_color = Color(0.692403, 0.492944, 0.168868, 0.42)
+
+[node name="HealthProgressBar" type="ProgressBar" parent="."]
+offset_left = -68.0
+offset_top = -102.0
+offset_right = 72.0
+offset_bottom = -89.0
+theme_override_styles/background = SubResource("StyleBoxFlat_3fsff")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ul2gv")
+value = 50.0
+show_percentage = false

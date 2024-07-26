@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://du3d7jmmnx5ro"]
+
+[ext_resource type="Texture2D" uid="uid://iqt845t7w44v" path="res://addons/Tiny Swords/Resources/Trees/Tree.png" id="1_7fdst"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yctam"]
+atlas = ExtResource("1_7fdst")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqs1b"]
+atlas = ExtResource("1_7fdst")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obu6j"]
+atlas = ExtResource("1_7fdst")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7rdc"]
+atlas = ExtResource("1_7fdst")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1bsxx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yctam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqs1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obu6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7rdc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kdww4"]
+radius = 2.12191
+height = 18.1878
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i63td"]
+radius = 37.499
+height = 156.906
+
+[node name="Tree" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1bsxx")
+autoplay = "default"
+frame_progress = 0.394562
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 57)
+scale = Vector2(5.0655, 2.01891)
+shape = SubResource("CapsuleShape2D_kdww4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(4, 40)
+rotation = 1.59665
+scale = Vector2(0.533348, 0.522101)
+shape = SubResource("CapsuleShape2D_i63td")

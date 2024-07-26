@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsbdn5lvdry4n"]
+[gd_scene load_steps=10 format=3 uid="uid://dsbdn5lvdry4n"]
 
 [ext_resource type="Texture2D" uid="uid://b6kj36e7emex" path="res://addons/Tiny Swords/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="1_2jcd4"]
 [ext_resource type="PackedScene" uid="uid://ciddiow0h734r" path="res://player/player.tscn" id="2_6ig7e"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cmvnem1tmb0ol" path="res://enemies/pawn.tscn" id="4_ydora"]
 [ext_resource type="PackedScene" uid="uid://bbn20y1ojclcs" path="res://enemies/sheep.tscn" id="5_psndq"]
 [ext_resource type="PackedScene" uid="uid://btk7wibo3nepo" path="res://enemies/goblin.tscn" id="6_tvn8a"]
+[ext_resource type="PackedScene" uid="uid://cbnksym85t52a" path="res://misc/skull.tscn" id="7_twg5t"]
+[ext_resource type="PackedScene" uid="uid://ceb1wav44vgox" path="res://misc/meat.tscn" id="8_chtb2"]
+[ext_resource type="PackedScene" uid="uid://cau8d8582smue" path="res://misc/damage_digit.tscn" id="9_jknda"]
 
 [node name="TestPlayer" type="Node2D"]
 
@@ -102,3 +105,12 @@ position = Vector2(766, 1239)
 
 [node name="Goblin" parent="." instance=ExtResource("6_tvn8a")]
 position = Vector2(354, 1505)
+
+[node name="Skull" parent="." instance=ExtResource("7_twg5t")]
+position = Vector2(440, 297)
+
+[node name="Meat" parent="." instance=ExtResource("8_chtb2")]
+position = Vector2(515, 403)
+
+[node name="DamageDigit" parent="." instance=ExtResource("9_jknda")]
+position = Vector2(445, 500)

@@ -1,14 +1,21 @@
+class_name Player
 extends CharacterBody2D
 
 @export var speed: float = 3
 @export var sword_damage: int = 2
 @export var health: int = 15
 @export var death_prefab: PackedScene
+@export var max_health: int = 15
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sword_area: Area2D = $SwordArea
 @onready var hitbox_area: Area2D = $HitBoxArea
+@onready var health_progress_bar: ProgressBar = $HealthProgressBar
+
+
+signal meat_collected(value:int)
+
 
 var input_vector: Vector2 = Vector2(0,0)
 
@@ -18,6 +25,9 @@ var is_attaking: bool = false
 var attack_cooldown: float = 0.0
 var hitbox_cooldown: float = 0.0
 
+func _ready():
+	GameManager.player = self
+	meat_collected.connect(func(): GameManager.meat_counter += 1)
 func _process(delta):
 	GameManager.player_position = position
 	update_hitbox_detection(delta)
@@ -27,6 +37,7 @@ func _process(delta):
 			is_attaking = false
 			animation_player.play("idle")
 	
+	update_heath_bar()
 
 func _physics_process(delta):
 	if !is_attaking:
@@ -99,7 +110,7 @@ func update_hitbox_detection(delta: float):
 	
 	var bodies = hitbox_area.get_overlapping_bodies()
 	for body in bodies:
-		print("testando 123")
+		
 		if body.is_in_group("enemies"):
 			var enemy: Enemy = body
 			var damage_amount = 1
@@ -123,9 +134,21 @@ func damage(amount: int) -> void:
 	
 
 func die() -> void:
+	GameManager.end_game()
 	if death_prefab:
 		var death_object = death_prefab.instantiate()
 		death_object.position = position
 		get_parent().add_child(death_object)
 	
 	queue_free()
+
+
+func heal(amount: int) -> int:
+	health += amount
+	if health > max_health:
+		health = max_health
+	return health
+
+func update_heath_bar() -> void:
+	health_progress_bar.max_value = max_health
+	health_progress_bar.value = health

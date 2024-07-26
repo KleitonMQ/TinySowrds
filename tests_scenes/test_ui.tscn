@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bin3f7yqq01et"]
+
+[ext_resource type="PackedScene" uid="uid://ciddiow0h734r" path="res://player/player.tscn" id="1_0iyhf"]
+[ext_resource type="PackedScene" uid="uid://snc2s5skhwhi" path="res://UI/game_ui.tscn" id="3_aomv2"]
+[ext_resource type="PackedScene" uid="uid://bbn20y1ojclcs" path="res://enemies/sheep.tscn" id="3_k76ys"]
+
+[node name="TestUi" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_0iyhf")]
+position = Vector2(512, 384)
+
+[node name="Sheep" parent="." instance=ExtResource("3_k76ys")]
+position = Vector2(155, 340)
+
+[node name="GameUi" parent="." instance=ExtResource("3_aomv2")]

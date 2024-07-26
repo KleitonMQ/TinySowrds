@@ -1,9 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://btk7wibo3nepo"]
+[gd_scene load_steps=16 format=3 uid="uid://btk7wibo3nepo"]
 
 [ext_resource type="Script" path="res://enemies/enemy.gd" id="1_e8rya"]
-[ext_resource type="PackedScene" uid="uid://ceb1wav44vgox" path="res://misc/skull.tscn" id="2_y3j2a"]
+[ext_resource type="PackedScene" uid="uid://0pi0agmfdoy5" path="res://misc/big_skull.tscn" id="2_tnt7w"]
 [ext_resource type="Texture2D" uid="uid://bptm28vobvmgk" path="res://addons/Tiny Swords/Factions/Goblins/Troops/Torch/Purple/Torch_Purple.png" id="3_1fkku"]
+[ext_resource type="PackedScene" uid="uid://dk6rkxx25fgc" path="res://misc/minimeat.tscn" id="3_jhrgc"]
+[ext_resource type="PackedScene" uid="uid://d1vcqtqy0ijla" path="res://misc/bluemeat.tscn" id="4_6b7ut"]
 [ext_resource type="Script" path="res://enemies/behaviors/followplayer.gd" id="4_ieqrf"]
+[ext_resource type="PackedScene" uid="uid://ceb1wav44vgox" path="res://misc/meat.tscn" id="5_0nmsd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7v0sq"]
 height = 43.0086
@@ -62,7 +65,10 @@ animations = [{
 motion_mode = 1
 script = ExtResource("1_e8rya")
 health = 20
-death_prefab = ExtResource("2_y3j2a")
+death_prefab = ExtResource("2_tnt7w")
+drop_chance = 0.5
+drop_items = Array[PackedScene]([ExtResource("3_jhrgc"), ExtResource("4_6b7ut"), ExtResource("5_0nmsd")])
+drop_chances = Array[float]([0.2, 0.5, 0.3])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, -37)
@@ -79,3 +85,6 @@ frame_progress = 0.14659
 [node name="FollowPlayer" type="Node" parent="."]
 script = ExtResource("4_ieqrf")
 speed = 0.5
+
+[node name="MarkerDamageDigit" type="Marker2D" parent="."]
+position = Vector2(0, -96)
